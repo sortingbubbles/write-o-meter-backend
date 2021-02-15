@@ -22,6 +22,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/analyze/")
+@app.post("/analyze")
 async def analyze_text(text: Text):
     return text
