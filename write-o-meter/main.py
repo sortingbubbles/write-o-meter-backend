@@ -1,5 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
+class Text(BaseModel):
+    text: str
 
 app = FastAPI()
 
@@ -18,6 +22,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+@app.post("/analyze/")
+async def analyze_text(text: Text):
+    return text
