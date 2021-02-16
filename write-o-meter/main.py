@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-class Text(BaseModel):
+class AnalysisRequestBody(BaseModel):
     text: str
 
 app = FastAPI()
@@ -21,5 +21,5 @@ app.add_middleware(
 )
 
 @app.post("/analyze")
-async def analyze_text(text: Text):
-    return text
+async def analyze_text(request: AnalysisRequestBody):
+    return 'Λέξεις: ' + len(request.text.split()) + ' & Προτάσεις: ' + len(request.text.split('.'))
