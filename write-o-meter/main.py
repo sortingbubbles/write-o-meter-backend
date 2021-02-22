@@ -22,4 +22,4 @@ app.add_middleware(
 
 @app.post("/analyze")
 async def analyze_text(request: AnalysisRequestBody):
-    return 'Λέξεις: ' + str(len(request.text.split())) + ' & Προτάσεις: ' + str(len(request.text.split('.') - 1))
+    return 'Λέξεις: ' + str(len(request.text.split())) + ' & Προτάσεις: ' + str(len(request.text.split('.')) - 1)
