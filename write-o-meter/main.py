@@ -25,14 +25,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/analyze")
+@app.post("/analyze-spacy")
 async def analyze_text(request: AnalysisRequestBody):
     doc = nlp(request.text)
-    print(doc, 'hello')
     print(doc.text)
     for token in doc:
         print(token.text, token.pos_, token.dep_)
     words = [token.text for token in doc if token.is_punct != True]
     res = doc.to_json()
     res['words'] = words
+    return res
+
+@app.post("/analyze-custom")
+async def analyze_text_custom(request: AnalysisRequestBody):
+    res = {
+        'words': '-',
+        'sents': '-',
+        'paragraphs': '-'
+    }
+    xorismos_protaseon = ['...', ';', '!']
+    text = request.text
+    for simeio_stiksis in xorismos_protaseon:
+        text = text.replace(simeio_stiksis, '.')
+    res['words'] = text.split(' ')
+    res['sents'] = text.split('. ')
     return res
