@@ -1,8 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from fastapi.responses import JSONResponse
-from fastapi.encoders import jsonable_encoder
 import spacy
 import re
 
@@ -70,7 +68,6 @@ def find_num_of_words(tokens):
 
 def tokenize_sentences(words):
     simeia_stiksis_telika_mona = [';', '!', ',', '-', ':', ')', '»', '·', '.']
-    simeia_stiksis_pollon_haraktirwn = ['...', '--']
     simeia_stiksis_arxi_leksis = ['(', '«']
     tokens = []
     for word in words:
@@ -157,7 +154,6 @@ def secondary_check(word, previousToken, nextToken):
             'lemma': word,
             'dep': 'adj'
         }
-    print(word, 'fdf')
     if word[0].isupper():
         if previousToken and (previousToken['pos'] != 'PUNCT' or previousToken['pos'] == 'DET'):
             return {
